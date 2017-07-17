@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="15F34" minimumToolsVersion="Xcode 8.0" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="ArticleClassify" representedClassName="ArticleClassify" syncable="YES">
+        <attribute name="c_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_select" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="HistoryRead" representedClassName="HistoryRead" syncable="YES" codeGenerationType="class">
+        <attribute name="addtime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="article_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_article" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="read_price" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="share_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="share_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="slink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="view_count" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="MineDate" representedClassName="MineDate" syncable="YES" codeGenerationType="class">
+        <attribute name="hb_new_hb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="headimgurl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="level" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mine_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nickname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="residue_money" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sex" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sum_read" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="today_read" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="RespondMineComment" representedClassName="RespondMineComment" syncable="YES" codeGenerationType="class">
+        <attribute name="addtime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="aid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="article_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="article_title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_nickname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="page" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rel_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rmc_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tourist_headimgurl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tourist_nickname" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="SystemMessage" representedClassName="SystemMessage" syncable="YES" codeGenerationType="class">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="m_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="page" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ptime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="read" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="ArticleClassify" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="HistoryRead" positionX="-54" positionY="18" width="128" height="225"/>
+        <element name="MineDate" positionX="-54" positionY="72" width="128" height="195"/>
+        <element name="SystemMessage" positionX="-54" positionY="99" width="128" height="135"/>
+        <element name="RespondMineComment" positionX="-45" positionY="108" width="128" height="225"/>
+    </elements>
+</model>
