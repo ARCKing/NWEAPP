@@ -36,6 +36,7 @@
 
 /**存放频道c_id数组*/
 @property(nonatomic,strong)NSMutableArray * articleChannelC_idSaveArray;
+
 /**翻页*/
 @property(nonatomic,strong)NSMutableArray * articleChannelPageIndex;
 
@@ -116,6 +117,10 @@
 @property (nonatomic,strong)MBProgressHUD * HUD;
 
 @property (nonatomic,strong)UILabel * withDrawLabel;
+
+
+/**导入文章view*/
+@property(nonatomic,strong)UIView * importArticleView;
 
 
 @property (nonatomic,strong)UIImageView  * icon;
@@ -410,6 +415,7 @@
     
 //    [self getDataAndanalysis];
     
+#pragma mark- 1：检查本地数据
     [self checkSelectChannelFromCoreData];
     
     
@@ -742,10 +748,20 @@
             [titles addObject:model.title];
             [c_ids addObject:model.c_id];
             
-            
             [self.articleChannelPageIndex addObject:@"1"];
             
         }
+        
+        
+#pragma mark- 我导入
+        //
+        [titles insertObject:@"我导入" atIndex:0];
+        [c_ids insertObject:@"wo" atIndex:0];
+        
+        [self.articleChannelPageIndex addObject:@"1"];
+
+        //
+        
         
         self.articleChannelTitleSaveArray = [NSMutableArray arrayWithArray:titles];
         self.articleChannelC_idSaveArray = [NSMutableArray arrayWithArray:c_ids];
@@ -920,13 +936,22 @@
     scrollview.bounces = NO;
     scrollview.delegate = self;
     scrollview.backgroundColor = [UIColor whiteColor];
+    
+    scrollview.contentOffset = CGPointMake(ScreenWith, 0);
+    
     [self.view addSubview:scrollview];
     self.tableScrollBackGroundView = scrollview;
     
-    self.currentPage = 0;
+    self.currentPage = 1;
     
+    
+#pragma mark- 我导入
     //推荐的列表视图
-    UITableView * tableView = [self channelArticleListTableViewNew:CGRectMake(0, 0, ScreenWith, self.tableScrollBackGroundView.bounds.size.height) andCurrentPageTag: self.currentPage];
+    UITableView * tableView = [self channelArticleListTableViewNew:CGRectMake(ScreenWith, 0, ScreenWith, self.tableScrollBackGroundView.bounds.size.height) andCurrentPageTag: self.currentPage];
+    
+    tableView.tag = 22221;
+    
+    //
     
     self.firstTableView = tableView;
     
@@ -1461,9 +1486,55 @@
         
         [tableView.mj_header beginRefreshing];
 
+        
+#pragma mark- 我导入
+        //
+        if (tag + 22220 == 22220) {
+            
+            tableView.tableHeaderView = self.importArticleView;
+        }
+        //
+        
     }
     
     return currentTableView;
+}
+
+
+
+
+#pragma mark- 导入文章
+
+- (UIView *)importArticleView{
+
+    if (!_importArticleView) {
+        
+        _importArticleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWith, ScreenWith/6)];
+        
+        _importArticleView.backgroundColor = [UIColor whiteColor];
+        
+        
+        UIButton * bt = [self addRootButtonTypeTwoNewFram:CGRectMake(10, ScreenWith/12 - ScreenWith/20, ScreenWith - 20, ScreenWith/10) andImageName:@"" andTitle:@"导入文章" andBackGround:[UIColor whiteColor] andTitleColor:[UIColor colorWithRed:0.0 green:191.0/255.0 blue:1.0 alpha:1.0] andFont:17.0 andCornerRadius:2.0];
+        
+        bt.layer.borderWidth = 1.0;
+        bt.layer.borderColor = [UIColor colorWithRed:0.0 green:191.0/255.0 blue:1.0 alpha:1.0].CGColor;
+        
+        
+        [bt addTarget:self action:@selector(importArticleButtonAction) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_importArticleView addSubview:bt];
+        
+    }
+    
+    return _importArticleView;
+}
+
+
+
+- (void)importArticleButtonAction{
+
+    NSLog(@"importArticleButtonAction");
+    
 }
 
 
@@ -1499,7 +1570,7 @@
         
     }else{
         
-        NSArray * array = @[@"爱上",@"是的",@"无法",@"二恶",@"儿童",@"二人",@"营业",@"回个",@"回好",@"呵呵",@"将要",@"具有",@"让他",@"二二",@"玩儿",@"太容",@"应用",@"好人",@"我问",@"特尔"];
+        NSArray * array = @[@"24",@"是的",@"无法",@"二恶",@"儿童",@"二人",@"营业",@"回个",@"回好",@"呵呵",@"将要",@"具有",@"让他",@"二二",@"玩儿",@"太容",@"应用",@"好人",@"我问",@"特尔"];
 
        self.channelTitleDataArray = [NSMutableArray arrayWithArray:array];
     }
@@ -1645,7 +1716,7 @@
  *滑条
  */
 - (void)channelSelectLineNew{
-    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, channelBtHeight, channelBtWith, ScreenWith/10 - channelBtHeight)];
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(channelBtWith, channelBtHeight, channelBtWith, ScreenWith/10 - channelBtHeight)];
     line.backgroundColor = [UIColor colorWithRed:0.0 green:191.0/255.0 blue:1.0 alpha:1];
     line.layer.cornerRadius = (ScreenWith/10 - channelBtHeight)/2;
     
@@ -1686,6 +1757,7 @@
             [weakSelf.tableViewArray removeAllObjects];
         }
         
+#pragma mark- 1：检查本地数据
         [weakSelf checkSelectChannelFromCoreData];
 
         
@@ -1844,6 +1916,22 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
+#pragma mark- 我导入
+    //
+    if (tableView.tag == 22220) {
+        
+        UITableViewCell * cell_0 = [tableView dequeueReusableCellWithIdentifier:@"cell_0"];
+        
+        if (cell_0 == nil) {
+            
+            cell_0 = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell_0"];
+        }
+        
+        return cell_0;
+
+    }
+    //
+    
     
     MineOneTypeCell * cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (cell == nil) {
@@ -1956,6 +2044,15 @@
                 
             }
 
+            
+            //
+#pragma mark- 我导入
+            [titles insertObject:@"我导入" atIndex:0];
+            [c_ids insertObject:@"wo" atIndex:0];
+            [weakSelf.articleChannelPageIndex addObject:@"1"];
+            //
+            
+            
             weakSelf.articleChannelTitleSaveArray = [NSMutableArray arrayWithArray:titles];
             weakSelf.articleChannelC_idSaveArray = [NSMutableArray arrayWithArray:c_ids];
             
