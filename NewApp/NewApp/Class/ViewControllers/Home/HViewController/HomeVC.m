@@ -1535,6 +1535,11 @@
 
     NSLog(@"importArticleButtonAction");
     
+    ImportArticleController * vc = [[ImportArticleController alloc]init];
+    
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 

@@ -83,6 +83,9 @@
 		A93A5E931E5EDE0500130617 /* aliPay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A93A5E911E5EDE0500130617 /* aliPay@2x.png */; };
 		A93A5E941E5EDE0500130617 /* aliPay@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A93A5E921E5EDE0500130617 /* aliPay@3x.png */; };
 		A93A5E971E5EE3A400130617 /* AliPayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A93A5E961E5EE3A400130617 /* AliPayCell.m */; };
+		A943BB681F218CE100E300EC /* ImportArticleController.m in Sources */ = {isa = PBXBuildFile; fileRef = A943BB661F218CE100E300EC /* ImportArticleController.m */; };
+		A943BB691F218CE100E300EC /* ImportArticleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A943BB671F218CE100E300EC /* ImportArticleController.xib */; };
+		A943BB6C1F2197A600E300EC /* ImpoartArticleClassify.m in Sources */ = {isa = PBXBuildFile; fileRef = A943BB6B1F2197A600E300EC /* ImpoartArticleClassify.m */; };
 		A944A9FD1E5532D800B46FCD /* ArticleRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A944A9FC1E5532D800B46FCD /* ArticleRankCell.m */; };
 		A944AA001E5532F000B46FCD /* UserRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A944A9FF1E5532F000B46FCD /* UserRankCell.m */; };
 		A944AA031E557B5100B46FCD /* MineOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A944AA021E557B5100B46FCD /* MineOneCell.m */; };
@@ -580,6 +583,11 @@
 		A93A5E921E5EDE0500130617 /* aliPay@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aliPay@3x.png"; sourceTree = "<group>"; };
 		A93A5E951E5EE3A400130617 /* AliPayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliPayCell.h; sourceTree = "<group>"; };
 		A93A5E961E5EE3A400130617 /* AliPayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliPayCell.m; sourceTree = "<group>"; };
+		A943BB651F218CE100E300EC /* ImportArticleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportArticleController.h; sourceTree = "<group>"; };
+		A943BB661F218CE100E300EC /* ImportArticleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportArticleController.m; sourceTree = "<group>"; };
+		A943BB671F218CE100E300EC /* ImportArticleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImportArticleController.xib; sourceTree = "<group>"; };
+		A943BB6A1F2197A600E300EC /* ImpoartArticleClassify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImpoartArticleClassify.h; sourceTree = "<group>"; };
+		A943BB6B1F2197A600E300EC /* ImpoartArticleClassify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImpoartArticleClassify.m; sourceTree = "<group>"; };
 		A944A9FB1E5532D800B46FCD /* ArticleRankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleRankCell.h; sourceTree = "<group>"; };
 		A944A9FC1E5532D800B46FCD /* ArticleRankCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleRankCell.m; sourceTree = "<group>"; };
 		A944A9FE1E5532F000B46FCD /* UserRankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRankCell.h; sourceTree = "<group>"; };
@@ -1280,6 +1288,42 @@
 			path = PublicCell;
 			sourceTree = "<group>";
 		};
+		A943BB611F218C7D00E300EC /* ImportArticle */ = {
+			isa = PBXGroup;
+			children = (
+				A943BB631F218C7D00E300EC /* Controller */,
+				A943BB621F218C7D00E300EC /* Cell */,
+				A943BB641F218C7D00E300EC /* View */,
+			);
+			path = ImportArticle;
+			sourceTree = "<group>";
+		};
+		A943BB621F218C7D00E300EC /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		A943BB631F218C7D00E300EC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A943BB651F218CE100E300EC /* ImportArticleController.h */,
+				A943BB661F218CE100E300EC /* ImportArticleController.m */,
+				A943BB671F218CE100E300EC /* ImportArticleController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A943BB641F218C7D00E300EC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A943BB6A1F2197A600E300EC /* ImpoartArticleClassify.h */,
+				A943BB6B1F2197A600E300EC /* ImpoartArticleClassify.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A94E2E6A1E5FBE8800B8CF93 /* NetWork */ = {
 			isa = PBXGroup;
 			children = (
@@ -1650,6 +1694,7 @@
 		A978BD621E5143B600D1FAD3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				A943BB611F218C7D00E300EC /* ImportArticle */,
 				A978BD631E5143B600D1FAD3 /* HCell */,
 				A978BD641E5143B600D1FAD3 /* HModel */,
 				A978BD651E5143B600D1FAD3 /* HView */,
@@ -2671,6 +2716,7 @@
 				A902DDBB1E9E0B7700E8AA38 /* tab_home_sel@2x.png in Resources */,
 				A99DA17B1EE7FD6F0013BCF6 /* noNet@2x.png in Resources */,
 				A95ED24A1EA05DA70016FB53 /* friend_inviate@3x.png in Resources */,
+				A943BB691F218CE100E300EC /* ImportArticleController.xib in Resources */,
 				A99E77181E851FE500301B01 /* phb@3x.png in Resources */,
 				A99E76D31E84F8A200301B01 /* yqhy@2x.png in Resources */,
 				A98ACE951E53F1DA000DBFB9 /* key@2x.png in Resources */,
@@ -2903,6 +2949,7 @@
 				A94E2E701E602F9700B8CF93 /* HistoryRedModel.m in Sources */,
 				A978BDAC1E5144E200D1FAD3 /* AFAutoPurgingImageCache.m in Sources */,
 				A995E3241E7249A20016DAF5 /* InviateFriendTypeTwoVC.m in Sources */,
+				A943BB681F218CE100E300EC /* ImportArticleController.m in Sources */,
 				A99DA1701EE7D5C30013BCF6 /* ShareRecordVC.m in Sources */,
 				A978BE081E51452B00D1FAD3 /* MJRefreshAutoNormalFooter.m in Sources */,
 				A978BE121E51452B00D1FAD3 /* NSBundle+MJRefresh.m in Sources */,
@@ -2955,6 +3002,7 @@
 				A954E31D1E5BE861007133B4 /* EditUserNameView.m in Sources */,
 				A99DA16D1EE799420013BCF6 /* UIScrollView+EmptyDataSet.m in Sources */,
 				A9325F471E6808BD0044EA99 /* ComentListVC.m in Sources */,
+				A943BB6C1F2197A600E300EC /* ImpoartArticleClassify.m in Sources */,
 				A962DF971E5D1B3700533BC9 /* SetUserDataVC.m in Sources */,
 				A92F2D3D1E8A633400E07806 /* RespondMineComment+CoreDataProperties.m in Sources */,
 				A978BDB41E5144E200D1FAD3 /* UIWebView+AFNetworking.m in Sources */,

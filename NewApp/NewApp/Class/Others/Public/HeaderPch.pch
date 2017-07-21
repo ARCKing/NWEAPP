@@ -33,6 +33,9 @@
 #import "SearchBarVC.h"
 #import "ComentListVC.h"//品论列表
 #import "ChannelMangerVC.h"
+#import "ImportArticleController.h"
+#import "ImpoartArticleClassify.h"
+
 /**
  *IN MineVC + view
  */

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ImportArticleController">
+            <connections>
+                <outlet property="addLinkButton" destination="9u5-2V-HZC" id="7XC-GJ-hPH"/>
+                <outlet property="chanceTitleLabel" destination="BCU-Rw-kBN" id="KVf-Xn-PGv"/>
+                <outlet property="linkLabel" destination="ZoT-9w-29U" id="RRG-7X-5bm"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="添加文章" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKk-ny-TT5">
+                    <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="r2r-1K-9ec"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFL-3S-Xd5">
+                    <rect key="frame" x="290" y="20" width="80" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="6IV-Dc-aCO"/>
+                        <constraint firstAttribute="width" constant="80" id="kIh-UD-GBX"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <state key="normal" title="如何添加？">
+                        <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="rightButtonAction:" destination="-1" eventType="touchUpInside" id="ZiV-er-5bo"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JEw-iL-wWJ">
+                    <rect key="frame" x="0.0" y="64" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="sHB-H1-6wr"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9u5-2V-HZC">
+                    <rect key="frame" x="20" y="100" width="335" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="4mK-zZ-L6E"/>
+                    </constraints>
+                    <state key="normal" title="粘贴文章链接">
+                        <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="addLinkButtonAction:" destination="-1" eventType="touchUpInside" id="aUB-OO-7Sb"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZoT-9w-29U">
+                    <rect key="frame" x="20" y="165" width="335" height="90"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="90" id="7Sb-Uu-W2z"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择文章分类" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BCU-Rw-kBN">
+                    <rect key="frame" x="20" y="265" width="335" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="pA6-Nv-Em5"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1F-ks-h2s">
+                    <rect key="frame" x="5" y="20" width="60" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="9Jx-mk-VWb"/>
+                        <constraint firstAttribute="height" constant="44" id="vSG-Dg-5vE"/>
+                    </constraints>
+                    <state key="normal" title="Button" image="leftArrows.png"/>
+                    <connections>
+                        <action selector="popBackButtonAction:" destination="-1" eventType="touchUpInside" id="udL-Ny-icm"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="9u5-2V-HZC" firstAttribute="top" secondItem="JEw-iL-wWJ" secondAttribute="bottom" constant="35" id="1dN-QE-7AD"/>
+                <constraint firstAttribute="trailing" secondItem="JEw-iL-wWJ" secondAttribute="trailing" id="59b-F2-9nB"/>
+                <constraint firstItem="ZoT-9w-29U" firstAttribute="top" secondItem="9u5-2V-HZC" secondAttribute="bottom" constant="20" id="70H-2i-1il"/>
+                <constraint firstItem="fKk-ny-TT5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="9lG-22-njs"/>
+                <constraint firstItem="ZoT-9w-29U" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="Alg-Sj-mUm"/>
+                <constraint firstItem="BCU-Rw-kBN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="JX7-6A-et3"/>
+                <constraint firstAttribute="trailing" secondItem="9u5-2V-HZC" secondAttribute="trailing" constant="20" id="Ld1-Hi-sgc"/>
+                <constraint firstItem="OFL-3S-Xd5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="Mmb-ow-t4a"/>
+                <constraint firstItem="H1F-ks-h2s" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="SGo-bp-LV9"/>
+                <constraint firstAttribute="trailing" secondItem="BCU-Rw-kBN" secondAttribute="trailing" constant="20" id="arT-LK-pDS"/>
+                <constraint firstItem="9u5-2V-HZC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="dMs-2x-2Er"/>
+                <constraint firstItem="BCU-Rw-kBN" firstAttribute="top" secondItem="ZoT-9w-29U" secondAttribute="bottom" constant="10" id="guJ-O4-W9c"/>
+                <constraint firstItem="fKk-ny-TT5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jLo-FQ-sej"/>
+                <constraint firstItem="JEw-iL-wWJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="nIA-Rj-nsN"/>
+                <constraint firstItem="JEw-iL-wWJ" firstAttribute="top" secondItem="OFL-3S-Xd5" secondAttribute="bottom" id="nLd-JC-f3L"/>
+                <constraint firstAttribute="trailing" secondItem="ZoT-9w-29U" secondAttribute="trailing" constant="20" id="tZJ-rP-oaM"/>
+                <constraint firstItem="H1F-ks-h2s" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="5" id="wal-89-313"/>
+                <constraint firstAttribute="trailing" secondItem="OFL-3S-Xd5" secondAttribute="trailing" constant="5" id="ySj-5V-ZHX"/>
+                <constraint firstAttribute="trailing" secondItem="fKk-ny-TT5" secondAttribute="trailing" id="ya6-yl-aGN"/>
+            </constraints>
+            <point key="canvasLocation" x="25.5" y="52.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="leftArrows.png" width="22" height="22"/>
+    </resources>
+</document>
