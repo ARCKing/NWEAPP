@@ -549,4 +549,13 @@ typedef void(^NetFail) (void);
 
 #pragma mark- 领取红包
 - (void)getRedBao;
+
+#pragma mark- 获取用户审核中的文章
+/**获取用户审核中的文章*/
+- (void)getCustomerAuditImportArticleWithPage:(NSInteger)page;
+
+
+#pragma mark- 用户导入文章url
+/**用户导入文章url*/
+- (void)customerImportArticleURL:(NSString *)articleUrl andc_id:(NSString *)c_id;
 @end

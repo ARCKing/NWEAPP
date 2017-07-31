@@ -9,13 +9,14 @@
 #import "HomeVC.h"
 #import <WebKit/WebKit.h>
 #import <UMMobClick/MobClick.h>
+#import "CYLTableViewPlaceHolder.h"
 
 #define channelBtWith ScreenWith/6
 #define channelBtHeight ScreenWith/11
 
 #define ArticleTableViewTag  1100
 
-@interface HomeVC ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+@interface HomeVC ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,CYLTableViewPlaceHolderDelegate>
 
 /**分享窗口*/
 @property (nonatomic,strong)MainShareView * shareView;
@@ -131,6 +132,7 @@
 
 
 @property (nonatomic,strong)NSMutableArray * tableViewArray;
+
 @end
 
 @implementation HomeVC
@@ -1458,8 +1460,13 @@
         tableView.showsVerticalScrollIndicator = NO;
         tableView.rowHeight = ScreenWith/4 + 20;
         tableView.tag = tag + 22220;
-        tableView.emptyDataSetSource =self;
-        tableView.emptyDataSetDelegate = self;
+        
+        if (tableView.tag != 22220) {
+            
+            tableView.emptyDataSetSource =self;
+            tableView.emptyDataSetDelegate = self;
+        }
+      
         
         currentTableView = tableView;
         tableView.tableFooterView = [[UITableView alloc]init];
@@ -1911,6 +1918,12 @@
 #pragma mark- tableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
+    if (tableView.tag == 22220) {
+        
+        return 0;
+    }
+    
+    
     NSString * keyC_id = self.articleChannelC_idSaveArray[self.currentPage];
     NSLog(@"%@",keyC_id);
     
@@ -2119,10 +2132,23 @@
         
             [weakSelf.articleListAllDataDict setObject:data1 forKey:keyC_id];
             
-            
-            [tableView reloadData];
+            if (tableView.tag == 22220) {
+                
+                [tableView cyl_reloadData];
+                
+            }else{
+                
+                [tableView reloadData];
+
+            }
             
             [tableView.mj_header endRefreshing];
+            
+            
+            
+           
+            
+            
             
         }else{
             
@@ -2302,5 +2328,73 @@
 }
 
 
+
+#pragma mark- CYL
+//仅需使用  cyl_reloadData 代替  reloadData 即可。
+//[self.tableView cyl_reloadData];
+
+//仅一个必须实现的协议方法：创建一个自定义的占位视图并返回
+
+//有数据->没数据 会调用一次
+- (UIView *)makePlaceHolderView{
+    
+    UIView * v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWith,ScreenWith)];
+    
+    UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWith/3, ScreenWith/4)];
+   
+    image.center = v.center;
+    
+    [v addSubview:image];
+    
+   
+    UIButton * bt = [self addRootButtonTypeTwoNewFram:CGRectMake(ScreenWith/3, CGRectGetMaxY(image.frame) + ScreenWith/18, ScreenWith/3, ScreenWith/10) andImageName:nil andTitle:@"点我登录" andBackGround:[UIColor clearColor] andTitleColor:[UIColor blackColor] andFont:16.0 andCornerRadius:2.0];
+    [bt addTarget:self action:@selector(cylBtAction) forControlEvents:UIControlEventTouchUpInside];
+    bt.layer.borderWidth = 1.0;
+    bt.layer.borderColor = [UIColor colorWithRed:0.0/255.0 green:191.0/255.0 blue:255.0/255.0 alpha:1.0].CGColor;
+    
+//    [v addSubview:bt];
+    
+ 
+    
+    if ([self.isLogin isEqualToString:@"1"]) {
+        
+        image.image =[ UIImage imageNamed:@"icon_noD"];
+        
+        [bt setTitle:@"下拉刷新" forState:UIControlStateNormal];
+        
+    }else{
+        
+        image.image =[ UIImage imageNamed:@"ic_un_login"];
+        
+        [bt setTitle:@"点我登录" forState:UIControlStateNormal];
+
+    }
+    
+    
+    return v;
+}
+
+
+- (void)cylBtAction{
+
+    if ([self.isLogin isEqualToString:@"1"]) {
+    
+        
+    }else{
+    
+        LoginViewController * vc = [[LoginViewController alloc]init];
+        self.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        self.hidesBottomBarWhenPushed = NO;
+        
+    }
+
+}
+
+//另外，占位视图默认的设置是不能滚动的，也就不能下拉刷新了，但是如果想让占位视图可以滚动，则需要实现下面的可选代理方法。
+- (BOOL)enableScrollWhenPlaceHolderViewShowing{
+    
+    return YES;
+}
 
 @end

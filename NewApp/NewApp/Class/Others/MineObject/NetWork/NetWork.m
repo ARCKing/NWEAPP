@@ -3785,4 +3785,76 @@ static NetWork * net;
     }];
 
 }
+
+
+
+#pragma mark- 获取用户审核中的文章
+/**获取用户审核中的文章*/
+- (void)getCustomerAuditImportArticleWithPage:(NSInteger)page{
+
+    AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
+    manger.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    NSDictionary * dict = [[NSUserDefaults standardUserDefaults]objectForKey:@"userInfo"];
+    
+    NSMutableDictionary * dic = [NSMutableDictionary new];
+    dic[@"uid"] = dict[@"uid"];
+    dic[@"token"] = dict[@"token"];
+    dic[@"page"] = [NSString stringWithFormat:@"%ld",page];
+    
+    NSString * urls = [NSString stringWithFormat:@"%@/App/Collection/UserCaiData",DomainURL];
+    [manger POST:urls parameters:dic  constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSLog(@"code=%@",responseObject[@"code"]);
+        NSLog(@"message=%@",responseObject[@"message"]);
+        NSLog(@"responseObject=%@",responseObject);
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        NSLog(@"%@",error);
+        
+    }];
+    
+
+}
+
+#pragma mark- 用户导入文章url
+/**用户导入文章url*/
+- (void)customerImportArticleURL:(NSString *)articleUrl andc_id:(NSString *)c_id{
+
+    AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
+    manger.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    NSDictionary * dict = [[NSUserDefaults standardUserDefaults]objectForKey:@"userInfo"];
+    
+    NSMutableDictionary * dic = [NSMutableDictionary new];
+    dic[@"uid"] = dict[@"uid"];
+    dic[@"c_id"] = c_id;
+    dic[@"url"] = [NSString stringWithFormat:@"%@",articleUrl];
+    
+    NSString * urls = [NSString stringWithFormat:@"%@/App/Wxcai/wxCollect",DomainURL];
+    [manger POST:urls parameters:dic  constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSLog(@"code=%@",responseObject[@"code"]);
+        NSLog(@"message=%@",responseObject[@"message"]);
+        NSLog(@"responseObject=%@",responseObject);
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        NSLog(@"%@",error);
+        
+    }];
+
+}
+
 @end
