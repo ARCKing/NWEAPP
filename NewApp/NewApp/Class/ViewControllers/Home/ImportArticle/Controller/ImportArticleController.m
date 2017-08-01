@@ -215,6 +215,16 @@
 
 
 - (IBAction)rightButtonAction:(id)sender {
+    
+    
+    WKWebViewController * vc = [[WKWebViewController alloc]init];
+    
+    vc.urlString = [NSString stringWithFormat:@"%@/App/Index/jiaocheng",DomainURL];
+    vc.isNewTeach = YES;
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
+
 }
 
 
