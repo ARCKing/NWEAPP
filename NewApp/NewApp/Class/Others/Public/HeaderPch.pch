@@ -194,6 +194,10 @@
 #import "TaskAndInviateIncomeModel.h"//收益明细
 #import "RedBaoModel.h"
 
+#import "LoginView.h"
+#import "ImportArticleModel.h"
+#import "ImportArticleCell.h"
+
 typedef NS_ENUM(NSInteger,DeviceScreen){
 
     DeviceScreenIs4_0,//0  320*568 4.0寸

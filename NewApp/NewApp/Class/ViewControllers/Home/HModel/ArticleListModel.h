@@ -39,5 +39,6 @@
 
 @property (nonatomic,copy)NSString <Optional> * aid;
 @property (nonatomic,copy)NSString <Optional> * uid;
+@property (nonatomic,copy)NSString <Optional> * state;
 
 @end

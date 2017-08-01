@@ -19,6 +19,12 @@ typedef void(^NetFail) (void);
 
 @interface NetWork : NSObject
 
+/**我导入的文章*/
+@property(nonatomic,copy)DataFromNetComeBackBolck customerImportArticleListBK;
+
+/**导入文章链接*/
+@property(nonatomic,copy)MessageFromNetComeBackBolck importArticleLinkBK;
+
 /**领取红包*/
 @property(nonatomic,copy)DataFromNetComeBackBolck GetRedBaoBK;
 
@@ -550,7 +556,7 @@ typedef void(^NetFail) (void);
 #pragma mark- 领取红包
 - (void)getRedBao;
 
-#pragma mark- 获取用户审核中的文章
+#pragma mark- 获取用户导入的文章
 /**获取用户审核中的文章*/
 - (void)getCustomerAuditImportArticleWithPage:(NSInteger)page;
 

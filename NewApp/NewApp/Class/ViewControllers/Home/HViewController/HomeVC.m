@@ -133,6 +133,10 @@
 
 @property (nonatomic,strong)NSMutableArray * tableViewArray;
 
+@property (nonatomic,strong)LoginView * loginView;
+
+@property (nonatomic,strong)UITableView * wdlTableView;
+
 @end
 
 @implementation HomeVC
@@ -248,6 +252,20 @@
          */
     }
 
+    
+    
+    
+    if ([self.isLogin isEqualToString:@"1"]) {
+        
+        [self.loginView removeFromSuperview];
+    
+    }
+    
+    if (![self.isLogin isEqualToString:@"1"]) {
+    
+        [self.tableScrollBackGroundView addSubview:self.loginView];
+        
+    }
 }
 
 
@@ -1498,6 +1516,8 @@
         //
         if (tag + 22220 == 22220) {
             
+            self.wdlTableView = tableView;
+            
             tableView.tableHeaderView = self.importArticleView;
         }
         //
@@ -1864,6 +1884,7 @@
     
     if (scrollView.tag == 1001) {
         
+        NSLog(@"---+++---+++_----+__+");
         
     }else if(scrollView.tag == 1002){
     
@@ -1874,7 +1895,61 @@
         
     }
     
+
+    if (scrollView.tag == 1002) {
+        
+        
+        if ([self.isLogin isEqualToString:@"1"]) {
+        
+            [self.loginView removeFromSuperview];
+        
+        }else{
+        
+            [scrollView addSubview:self.loginView];
+            [scrollView bringSubviewToFront:self.loginView];
+
+        }
+    
+    }
 }
+
+
+- (LoginView *)loginView{
+
+    if (!_loginView) {
+        
+        _loginView = [[LoginView alloc]initWithFrame:CGRectMake(0, 0, ScreenWith, ScreenHeight)];
+        _loginView.backgroundColor = [UIColor whiteColor];
+        [_loginView.loginBt addTarget:self action:@selector(cylBtAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _loginView;
+}
+
+
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+
+    NSLog(@"滚动动画结束");
+    
+    if (scrollView.tag == 1002) {
+        
+        
+        if ([self.isLogin isEqualToString:@"1"]) {
+            
+            [self.loginView removeFromSuperview];
+            
+        }else{
+            
+            [scrollView addSubview:self.loginView];
+            
+            [scrollView bringSubviewToFront:self.loginView];
+        }
+        
+    }
+    
+    
+}
+
 
 
 #pragma mark- 调整title line tableScrollview位置
@@ -1918,12 +1993,6 @@
 #pragma mark- tableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
-    if (tableView.tag == 22220) {
-        
-        return 0;
-    }
-    
-    
     NSString * keyC_id = self.articleChannelC_idSaveArray[self.currentPage];
     NSLog(@"%@",keyC_id);
     
@@ -1938,13 +2007,40 @@
     //
     if (tableView.tag == 22220) {
         
-        UITableViewCell * cell_0 = [tableView dequeueReusableCellWithIdentifier:@"cell_0"];
+        ImportArticleCell * cell_0 = [tableView dequeueReusableCellWithIdentifier:@"cell_0"];
         
         if (cell_0 == nil) {
             
-            cell_0 = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell_0"];
+            cell_0 = [[[NSBundle mainBundle] loadNibNamed:@"ImportArticleCell" owner:self options:nil]firstObject];
         }
         
+        NSString * keyC_id = self.articleChannelC_idSaveArray[self.currentPage];
+        NSLog(@"%@",keyC_id);
+        
+        NSArray * currentArrayList = [self.articleListAllDataDict objectForKey:keyC_id];
+        
+        if (indexPath.row <= currentArrayList.count) {
+            
+            ArticleListModel * model = currentArrayList[indexPath.row];
+            
+            NSLog(@"%@",model);
+            
+            cell_0.model = model;
+            
+            
+            if (![model.state isEqualToString:@"1"]) {
+                
+                cell_0.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+            }else{
+            
+                cell_0.selectionStyle = UITableViewCellSelectionStyleDefault;
+
+            }
+            
+            
+        }
+
         return cell_0;
 
     }
@@ -1993,6 +2089,20 @@
     NSArray * currentArrayList = [self.articleListAllDataDict objectForKey:keyC_id];
     
     ArticleListModel * model = currentArrayList[indexPath.row];
+    
+    
+    if (tableView.tag == 22220) {
+        
+        
+        if ([model.state isEqualToString:@"0"] || [model.state isEqualToString:@"-1"]) {
+            
+            return;
+        }
+        
+        
+    }
+    
+    
     
     NSString * heigh = [NSString stringWithFormat:@"%@",model.height];
     
@@ -2194,13 +2304,83 @@
 }
 
 
+#pragma mark- 我导入的文章
+- (void)customerImportArticleWithPage:(NSInteger)page andIsRefresh:(BOOL)isRefresh{
+
+    NetWork * net = [NetWork shareNetWorkNew];
+    
+    [net getCustomerAuditImportArticleWithPage:page];
+    
+    
+    __weak HomeVC * weakSelf = self;
+    
+    net.customerImportArticleListBK = ^(NSString *code, NSString *message, NSString *str, NSArray * arr1, NSArray *arr2) {
+        
+        NSLog(@"%@",arr1);
+        
+        
+        if (isRefresh) {
+            
+            NSString * keyC_id = weakSelf.articleChannelC_idSaveArray[weakSelf.currentPage];
+            NSLog(@"%@",keyC_id);
+
+            weakSelf.currentArticleListArray = [NSMutableArray arrayWithArray:arr1];
+            
+            [weakSelf.articleListAllDataDict setObject:arr1 forKey:keyC_id];
+            
+        
+        }else{
+            
+            
+            NSString * keyC_id = weakSelf.articleChannelC_idSaveArray[weakSelf.currentPage];
+            
+            NSLog(@"%@",keyC_id);
+            
+            NSArray * currentArrayList = [self.articleListAllDataDict objectForKey:keyC_id];
+            
+            NSMutableArray * newArray = [NSMutableArray arrayWithArray:currentArrayList];
+            
+            [newArray addObjectsFromArray:arr1];
+            
+            weakSelf.currentArticleListArray = [NSMutableArray arrayWithArray:newArray];
+            
+            [weakSelf.articleListAllDataDict setObject:weakSelf.currentArticleListArray forKey:keyC_id];
+            
+        }
+        
+        
+        [weakSelf.wdlTableView cyl_reloadData];
+
+        [weakSelf.wdlTableView.mj_header endRefreshing];
+        [weakSelf.wdlTableView.mj_footer endRefreshing];
+        
+    };
+    
+    
+    
+}
+
+
 #pragma mark- 下拉刷新
 - (void)MJdataReload{
     
-    [self.articleChannelPageIndex replaceObjectAtIndex:self.currentPage withObject:@"1"];
+    if (self.currentPage == 0) {
     
-    [self getArticleListWithC_id:self.articleChannelC_idSaveArray[self.currentPage] andpageIndex:@"1" andUid:self.uid andIsReload:YES];
-
+        NSLog(@"下拉刷新一号");
+        
+        [self.articleChannelPageIndex replaceObjectAtIndex:self.currentPage withObject:@"1"];
+        
+        [self customerImportArticleWithPage:1 andIsRefresh:YES];
+        
+    }else{
+    
+    
+        [self.articleChannelPageIndex replaceObjectAtIndex:self.currentPage withObject:@"1"];
+    
+        [self getArticleListWithC_id:self.articleChannelC_idSaveArray[self.currentPage] andpageIndex:@"1" andUid:self.uid andIsReload:YES];
+    }
+    
+    
     [self checkMineDataFromNet];
 
 //    [self hidenWhenReview];
@@ -2219,17 +2399,28 @@
     page ++;
  
     
-    NSString * pageIndex = [NSString stringWithFormat:@"%ld",page];
+    if (self.currentPage == 0) {
+        
+        NSString * pageIndex = [NSString stringWithFormat:@"%ld",page];
+        
+        [self.articleChannelPageIndex replaceObjectAtIndex:self.currentPage  withObject:pageIndex];
+        
+        [self customerImportArticleWithPage:page andIsRefresh:NO];
+
+        
+    }else{
+    
+        NSString * pageIndex = [NSString stringWithFormat:@"%ld",page];
     
     
-    [self.articleChannelPageIndex replaceObjectAtIndex:self.currentPage  withObject:pageIndex];
+        [self.articleChannelPageIndex replaceObjectAtIndex:self.currentPage  withObject:pageIndex];
     
     
-    NSLog(@"%@",self.articleChannelPageIndex);
+        NSLog(@"%@",self.articleChannelPageIndex);
 
     
-    [self getArticleListWithC_id:self.articleChannelC_idSaveArray[self.currentPage] andpageIndex:pageIndex andUid:self.uid andIsReload:NO];
-
+        [self getArticleListWithC_id:self.articleChannelC_idSaveArray[self.currentPage] andpageIndex:pageIndex andUid:self.uid andIsReload:NO];
+    }
 }
 
 #pragma mark- 活动公告
@@ -2340,55 +2531,25 @@
     
     UIView * v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWith,ScreenWith)];
     
-    UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWith/3, ScreenWith/4)];
+    UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWith/6, ScreenWith/6)];
    
-    image.center = v.center;
+    image.center = CGPointMake(v.center.x, v.center.y - ScreenWith/12);
     
     [v addSubview:image];
     
-   
-    UIButton * bt = [self addRootButtonTypeTwoNewFram:CGRectMake(ScreenWith/3, CGRectGetMaxY(image.frame) + ScreenWith/18, ScreenWith/3, ScreenWith/10) andImageName:nil andTitle:@"点我登录" andBackGround:[UIColor clearColor] andTitleColor:[UIColor blackColor] andFont:16.0 andCornerRadius:2.0];
-    [bt addTarget:self action:@selector(cylBtAction) forControlEvents:UIControlEventTouchUpInside];
-    bt.layer.borderWidth = 1.0;
-    bt.layer.borderColor = [UIColor colorWithRed:0.0/255.0 green:191.0/255.0 blue:255.0/255.0 alpha:1.0].CGColor;
-    
-//    [v addSubview:bt];
-    
- 
-    
-    if ([self.isLogin isEqualToString:@"1"]) {
-        
-        image.image =[ UIImage imageNamed:@"icon_noD"];
-        
-        [bt setTitle:@"下拉刷新" forState:UIControlStateNormal];
-        
-    }else{
-        
-        image.image =[ UIImage imageNamed:@"ic_un_login"];
-        
-        [bt setTitle:@"点我登录" forState:UIControlStateNormal];
-
-    }
-    
+    image.image =[ UIImage imageNamed:@"icon_noD"];
     
     return v;
 }
 
 
+#pragma mark- 我的导入登录按钮
 - (void)cylBtAction{
-
-    if ([self.isLogin isEqualToString:@"1"]) {
-    
-        
-    }else{
-    
         LoginViewController * vc = [[LoginViewController alloc]init];
         self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
         self.hidesBottomBarWhenPushed = NO;
-        
-    }
-
+    
 }
 
 //另外，占位视图默认的设置是不能滚动的，也就不能下拉刷新了，但是如果想让占位视图可以滚动，则需要实现下面的可选代理方法。

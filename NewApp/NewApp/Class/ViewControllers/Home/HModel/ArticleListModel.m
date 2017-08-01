@@ -10,4 +10,6 @@
 
 @implementation ArticleListModel
 
+
+
 @end

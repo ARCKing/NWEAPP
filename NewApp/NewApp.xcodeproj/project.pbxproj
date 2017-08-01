@@ -325,6 +325,10 @@
 		A98ACE9F1E53FF20000DBFB9 /* message_dx@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A98ACE9D1E53FF20000DBFB9 /* message_dx@3x.png */; };
 		A98ACEA31E5406E4000DBFB9 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A98ACEA11E5406E4000DBFB9 /* ResetPasswordViewController.m */; };
 		A98ACEA41E5406E4000DBFB9 /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98ACEA21E5406E4000DBFB9 /* ResetPasswordViewController.xib */; };
+		A98D4F8F1F300EE00076AA8E /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = A98D4F8E1F300EE00076AA8E /* LoginView.m */; };
+		A98D4F921F305DCC0076AA8E /* ImportArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A98D4F911F305DCC0076AA8E /* ImportArticleModel.m */; };
+		A98D4F961F3068050076AA8E /* ImportArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A98D4F941F3068050076AA8E /* ImportArticleCell.m */; };
+		A98D4F971F3068050076AA8E /* ImportArticleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98D4F951F3068050076AA8E /* ImportArticleCell.xib */; };
 		A98EBF671E80FC5E000EC00A /* libUMessage_Sdk_1.5.0a.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A98EBF651E80FC5E000EC00A /* libUMessage_Sdk_1.5.0a.a */; };
 		A98EBF691E80FCBD000EC00A /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A98EBF681E80FCBD000EC00A /* UserNotifications.framework */; };
 		A98EBF6C1E80FCF9000EC00A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A98EBF6A1E80FCE7000EC00A /* libz.tbd */; };
@@ -977,6 +981,13 @@
 		A98ACEA01E5406E4000DBFB9 /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetPasswordViewController.h; sourceTree = "<group>"; };
 		A98ACEA11E5406E4000DBFB9 /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResetPasswordViewController.m; sourceTree = "<group>"; };
 		A98ACEA21E5406E4000DBFB9 /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
+		A98D4F8D1F300EE00076AA8E /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
+		A98D4F8E1F300EE00076AA8E /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
+		A98D4F901F305DCC0076AA8E /* ImportArticleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportArticleModel.h; sourceTree = "<group>"; };
+		A98D4F911F305DCC0076AA8E /* ImportArticleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportArticleModel.m; sourceTree = "<group>"; };
+		A98D4F931F3068050076AA8E /* ImportArticleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportArticleCell.h; sourceTree = "<group>"; };
+		A98D4F941F3068050076AA8E /* ImportArticleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportArticleCell.m; sourceTree = "<group>"; };
+		A98D4F951F3068050076AA8E /* ImportArticleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImportArticleCell.xib; sourceTree = "<group>"; };
 		A98EBF651E80FC5E000EC00A /* libUMessage_Sdk_1.5.0a.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.5.0a.a; sourceTree = "<group>"; };
 		A98EBF661E80FC5E000EC00A /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		A98EBF681E80FCBD000EC00A /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -1317,6 +1328,9 @@
 		A943BB621F218C7D00E300EC /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				A98D4F931F3068050076AA8E /* ImportArticleCell.h */,
+				A98D4F941F3068050076AA8E /* ImportArticleCell.m */,
+				A98D4F951F3068050076AA8E /* ImportArticleCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1732,6 +1746,8 @@
 		A978BD641E5143B600D1FAD3 /* HModel */ = {
 			isa = PBXGroup;
 			children = (
+				A98D4F901F305DCC0076AA8E /* ImportArticleModel.h */,
+				A98D4F911F305DCC0076AA8E /* ImportArticleModel.m */,
 				A962CAAB1E63B51C0087D9C4 /* ArticleClassifyModel.h */,
 				A962CAAC1E63B51C0087D9C4 /* ArticleClassifyModel.m */,
 				A962CAAE1E63BF3D0087D9C4 /* ArticleListModel.h */,
@@ -1751,6 +1767,8 @@
 			children = (
 				A91DD3681E52FD1B00BF285E /* buttonOrderView.h */,
 				A91DD3691E52FD1B00BF285E /* buttonOrderView.m */,
+				A98D4F8D1F300EE00076AA8E /* LoginView.h */,
+				A98D4F8E1F300EE00076AA8E /* LoginView.m */,
 			);
 			path = HView;
 			sourceTree = "<group>";
@@ -2705,6 +2723,7 @@
 				A902DDBD1E9E0B7700E8AA38 /* tab_home_no@2x.png in Resources */,
 				A971EE331E6505EC006FD5CC /* talk@3x.png in Resources */,
 				A950BB4C1E56CCCC00855BB0 /* leftArrows@2x.png in Resources */,
+				A98D4F971F3068050076AA8E /* ImportArticleCell.xib in Resources */,
 				A902DDB31E9E0B7700E8AA38 /* tab_rank_sel@2x.png in Resources */,
 				A99E056B1ED6C0E100E67FB9 /* DZP@3x.png in Resources */,
 				A97BF20D1EE681A500262191 /* img_red_packet2.png in Resources */,
@@ -2902,6 +2921,7 @@
 				A978BD451E513DE000D1FAD3 /* AppDelegate.m in Sources */,
 				A970179B1E78E669005CB3A7 /* ArticleClassify+CoreDataProperties.m in Sources */,
 				A97C9C071EE938FC0032BCC7 /* RedBaoModel.m in Sources */,
+				A98D4F921F305DCC0076AA8E /* ImportArticleModel.m in Sources */,
 				A99438401E769D9E00FD7263 /* ProfitDetailModel.m in Sources */,
 				A978BE5A1E514A5200D1FAD3 /* HomeVC.m in Sources */,
 				A978BE0E1E51452B00D1FAD3 /* MJRefreshNormalHeader.m in Sources */,
@@ -2948,6 +2968,7 @@
 				A9B5D08F1E9486410077C543 /* VersionModel.m in Sources */,
 				A945538D1E7F66B300A090A2 /* RespondGiftVC.m in Sources */,
 				A99F7FC71ED41FB1003A8D74 /* BindWeChatAccountVC.m in Sources */,
+				A98D4F8F1F300EE00076AA8E /* LoginView.m in Sources */,
 				A978BE4A1E51467000D1FAD3 /* SDWebImageDownloaderOperation.m in Sources */,
 				A98ACE8E1E53EDE9000DBFB9 /* CALayer+UIColor.m in Sources */,
 				A91C06711E779F0900DB5867 /* FriendListVC.m in Sources */,
@@ -3012,6 +3033,7 @@
 				A944AA061E55854C00B46FCD /* SectionZeroUserCell.m in Sources */,
 				A962DF951E5D1B3700533BC9 /* EditDetailDataVC.m in Sources */,
 				A978BE631E514AD800D1FAD3 /* VideoVC.m in Sources */,
+				A98D4F961F3068050076AA8E /* ImportArticleCell.m in Sources */,
 				A96FB3A41EE260F50037FF96 /* IncomeDetailTypeTwoVC.m in Sources */,
 				A978BD421E513DE000D1FAD3 /* main.m in Sources */,
 				A950BB621E56EE8600855BB0 /* NJKWebViewProgress.m in Sources */,

@@ -3788,8 +3788,8 @@ static NetWork * net;
 
 
 
-#pragma mark- 获取用户审核中的文章
-/**获取用户审核中的文章*/
+#pragma mark- 获取用户导入的文章
+/**获取用户导入的文章*/
 - (void)getCustomerAuditImportArticleWithPage:(NSInteger)page{
 
     AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
@@ -3812,7 +3812,36 @@ static NetWork * net;
         NSLog(@"code=%@",responseObject[@"code"]);
         NSLog(@"message=%@",responseObject[@"message"]);
         NSLog(@"responseObject=%@",responseObject);
-        
+
+        NSString * code = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        NSString * message = [NSString stringWithFormat:@"%@",responseObject[@"message"]];
+
+        NSMutableArray * dataModelArr = [NSMutableArray new];
+        if ([code isEqualToString:@"1"]) {
+           
+            NSArray * data = [NSArray arrayWithArray:responseObject[@"data"]];
+
+            if (data.count > 0) {
+                
+                for (NSDictionary * modelDic in data) {
+                    
+                    ImportArticleModel * model = [[ImportArticleModel alloc]initWithDictionary:modelDic error:nil];
+                    
+                    ArticleListModel * aModel = [[ArticleListModel alloc]init];
+                    
+                    aModel.id = [model.article_id intValue];
+                    aModel.thumb = model.thumb;
+                    aModel.addtime = model.addtime;
+                    aModel.title = model.title;
+                    aModel.state = model.state;
+                    
+                    [dataModelArr addObject:aModel];
+                }
+            }
+    
+        }
+    
+        self.customerImportArticleListBK(code, message, nil, dataModelArr, nil);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
@@ -3847,7 +3876,10 @@ static NetWork * net;
         NSLog(@"code=%@",responseObject[@"code"]);
         NSLog(@"message=%@",responseObject[@"message"]);
         NSLog(@"responseObject=%@",responseObject);
-        
+        NSString * code = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        NSString * message = [NSString stringWithFormat:@"%@",responseObject[@"message"]];
+
+        self.importArticleLinkBK(code, message);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
