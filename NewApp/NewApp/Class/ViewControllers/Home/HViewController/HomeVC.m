@@ -1518,7 +1518,8 @@
             
             self.wdlTableView = tableView;
             
-            tableView.tableHeaderView = self.importArticleView;
+            tableView.frame = CGRectMake(0, ScreenWith/6, ScreenWith, frame.size.height - ScreenWith/6);
+            [self.tableScrollBackGroundView addSubview: self.importArticleView];
         }
         //
         
