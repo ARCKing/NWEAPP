@@ -166,27 +166,34 @@
 #pragma mark- 导入链接
 - (void)importArticleWithLink:(NSString *)link andc_id:(NSString *)c_id{
 
-    NetWork * net = [NetWork shareNetWorkNew];
     
-    [net customerImportArticleURL:link andc_id:c_id];
-    
-    __weak ImportArticleController * weakSelf = self;
-    
-    MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    net.importArticleLinkBK = ^(NSString *code, NSString *message) {
+    if (c_id == nil) {
         
-        [hud hideAnimated:YES];
+        [self rootShowMBPhudWith:@"请选择文章类型" andShowTime:1.5];
         
-        NSLog(@"%@,%@",code,message);
+    }else{
+    
+        NetWork * net = [NetWork shareNetWorkNew];
+    
+        [net customerImportArticleURL:link andc_id:c_id];
+    
+        __weak ImportArticleController * weakSelf = self;
         
-        [weakSelf rootShowMBPhudWith:message andShowTime:2.0];
+        MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+        net.importArticleLinkBK = ^(NSString *code, NSString *message) {
         
-        [weakSelf performSelector:@selector(succeedImportArticle) withObject:nil afterDelay:2.5];
-    };
+            [hud hideAnimated:YES];
+        
+            NSLog(@"%@,%@",code,message);
+        
+            [weakSelf rootShowMBPhudWith:message andShowTime:2.0];
+        
+            [weakSelf performSelector:@selector(succeedImportArticle) withObject:nil afterDelay:2.5];
+        };
     
-    
-    
+    }
+
 }
 
 

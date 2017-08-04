@@ -3868,7 +3868,7 @@ static NetWork * net;
     
     NSString * key = @"Vf26Y#oBH#!6M37!*#XfW";
 
-    NSString * sourceString = [NSString stringWithFormat:@"uid=%@&url=%@&key=%@",dict[@"uid"],articleUrl,key];
+    NSString * sourceString = [NSString stringWithFormat:@"c_id=%@&uid=%@&url=%@&key=%@",c_id,dict[@"uid"],articleUrl,key];
     NSString * md5Code = [MD5Tool MD5ForUpper32Bate:sourceString];
     
     dic[@"sign"] = md5Code;
