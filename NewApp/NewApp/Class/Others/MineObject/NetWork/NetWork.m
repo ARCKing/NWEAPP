@@ -3866,6 +3866,14 @@ static NetWork * net;
     dic[@"c_id"] = c_id;
     dic[@"url"] = [NSString stringWithFormat:@"%@",articleUrl];
     
+    NSString * key = @"Vf26Y#oBH#!6M37!*#XfW";
+
+    NSString * sourceString = [NSString stringWithFormat:@"uid=%@&url=%@&key=%@",dict[@"uid"],articleUrl,key];
+    NSString * md5Code = [MD5Tool MD5ForUpper32Bate:sourceString];
+    
+    dic[@"sign"] = md5Code;
+    
+    
     NSString * urls = [NSString stringWithFormat:@"%@/App/Wxcai/wxCollect",DomainURL];
     [manger POST:urls parameters:dic  constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
