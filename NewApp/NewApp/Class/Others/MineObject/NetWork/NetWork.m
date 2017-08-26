@@ -2904,6 +2904,12 @@ static NetWork * net;
         NSString * qq;
         NSString * ys;
 
+        NSString * thumb = nil;
+        NSString * title = nil;
+        
+        NSMutableArray * arr1 = [NSMutableArray new];
+        NSMutableArray * arr2 = [NSMutableArray new];
+
         if ([code isEqualToString:@"1"]) {
             
             if (responseObject[@"data"] != [NSNull null]) {
@@ -2916,12 +2922,17 @@ static NetWork * net;
                     qq = [NSString stringWithFormat:@"%@",data[@"qq"]];
                     ys = [NSString stringWithFormat:@"%@",data[@"ys"]];
 
+                    thumb = data[@"thumb"];
+                    title = data[@"title"];
+                    
+                    [arr1 addObject:thumb];
+                    [arr2 addObject:title];
                 }
                 
             }
         }
         
-        self.getAutonShareLinkBK(uc,qq,ys,nil,nil);
+        self.getAutonShareLinkBK(uc,qq,ys,arr1,arr2);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         

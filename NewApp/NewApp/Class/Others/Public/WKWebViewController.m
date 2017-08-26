@@ -40,6 +40,8 @@
 
 @property (nonatomic, strong) UIProgressView *progressView;
 
+@property (nonatomic,copy)NSString * article_thumb;
+@property (nonatomic,copy)NSString * article_title;
 
 @end
 
@@ -93,13 +95,14 @@
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     
+    self.article_thumb = self.articleModel.thumb;
+    self.article_title = self.articleModel.title;
+    
     
     if (self.isPushAPNS) {
         
         [self getPushshareAndSlink];
     }
-    
-    [self getShareImage];
     
     
     
@@ -167,20 +170,31 @@
 }
 
 
+#pragma mark- 分享图片
 /**获取分享缩略图*/
-- (void)getShareImage{
+- (void)getShareImage:(MBProgressHUD *)hud andys:(NSString *)ys{
 
-    
     SDWebImageManager * manger = [SDWebImageManager sharedManager];
     
     __weak WKWebViewController * weakSelf = self;
     
-    [manger.imageDownloader downloadImageWithURL:[NSURL URLWithString:self.articleModel.thumb] options:SDWebImageDownloaderHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+    [manger.imageDownloader downloadImageWithURL:[NSURL URLWithString:self.article_thumb] options:SDWebImageDownloaderHighPriority progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
         
     } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished) {
         
+        [hud hideAnimated:YES];
+        
         weakSelf.locationShareImage = image;
         
+        
+        if (weakSelf.locationShareImage == nil) {
+            
+            weakSelf.locationShareImage = [UIImage imageNamed:@"icon_180"];
+        }
+        
+        [weakSelf rootLocationWeiXinShareWithImage:self.locationShareImage andImageUrl:self.article_thumb andString:self.article_title andUrl:ys];
+        
+
     }];
     
     
@@ -433,7 +447,6 @@
     [priceView addSubview:line];
 
     
-    [self articlePriceGetFromnNet];
 }
 
 
@@ -700,20 +713,24 @@
     __weak WKWebViewController * weakSelf = self;
     net.getAutonShareLinkBK=^(NSString * uc,NSString * qq,NSString * ys,NSArray * arr1,NSArray * arr2){
     
-        [hud hideAnimated:YES];
-        
+
         if (uc && qq && ys) {
+            
+            
+            weakSelf.article_thumb = arr1[0];
+            weakSelf.article_title = arr2[0];
             
             if (isWeiXinShare) {
                 
-                [weakSelf QQbrowserShareOrUCbroeserShareOrYSshareWithUClink:uc andQQlink:qq AndYSLink:ys];
+                [weakSelf QQbrowserShareOrUCbroeserShareOrYSshareWithUClink:uc andQQlink:qq AndYSLink:ys andHUD:hud];
+
 
             }else{
             
-//                [weakSelf QQandQZoneShareWithYSshareLink:ys];
+                [hud hideAnimated:YES];
+
                 
-                
-                NSString * title = weakSelf.articleModel.title;
+                NSString * title = weakSelf.article_title;
                 
                 [weakSelf rootCopyLinkWith:[NSString stringWithFormat:@"%@\n%@",title,ys]];
                 
@@ -728,7 +745,8 @@
 }
 
 //浏览器分享
-- (void)QQbrowserShareOrUCbroeserShareOrYSshareWithUClink:(NSString *)uc andQQlink:(NSString *)qq AndYSLink:(NSString *)ys{
+- (void)QQbrowserShareOrUCbroeserShareOrYSshareWithUClink:(NSString *)uc andQQlink:(NSString *)qq AndYSLink:(NSString *)ys
+                                                   andHUD:(MBProgressHUD *)hud{
 
     
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"ucbrowser://"]] ){
@@ -767,18 +785,18 @@
         
     }else{
         
-        if (self.locationShareImage == nil) {
-            
-            self.locationShareImage = [UIImage imageNamed:@"icon_180"];
-        }
         
-     
-        [self rootLocationWeiXinShareWithImage:self.locationShareImage andImageUrl:self.articleModel.thumb andString:self.articleModel.title andUrl:ys];
+        [self getShareImage:hud andys:ys];
         
     }
     
 
 }
+
+
+
+
+
 
 
 //QQ分享
@@ -1501,6 +1519,8 @@
     
     NSLog(@"didStartProvisionalNavigation");
     
+    NSLog(@"didStartProvisionalNavigation-URL=>>>>>%@",webView.URL.absoluteString);
+
     NSLog(@"开始加载网页");
     //开始加载网页时展示出progressView
     self.progressView.hidden = NO;
@@ -1508,17 +1528,27 @@
     self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
     //防止progressView被网页挡住
     [self.view bringSubviewToFront:self.progressView];
+    
+    
+    [self getArticleIdWithArticleURL:webView.URL.absoluteString];
+    
 }
 
 // 当内容开始返回时调用
 - (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation{
     NSLog(@"didCommitNavigation");
     
+    NSLog(@"didCommitNavigation,URL=>>>>>%@",webView.URL.absoluteString);
+
 }
 
 // 页面加载完成之后调用
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
     NSLog(@"didFinishNavigation");
+    
+    
+    NSLog(@"didFinishNavigation,URL=>>>>>%@",webView.URL.absoluteString);
+
     
     if (self.isPost) {
         
@@ -1532,7 +1562,27 @@
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation{
     NSLog(@"didFailProvisionalNavigation");
     
+    NSLog(@"didFailProvisionalNavigation-URL=>>>>>%@",webView.URL.absoluteString);
+
 }
+
+
+#pragma mark- 获取文章ID
+- (void)getArticleIdWithArticleURL:(NSString *)url{
+
+    NSArray * arr = [url componentsSeparatedByString:@"/"];
+
+    if (arr.count > 0) {
+    
+        self.article_id = arr[arr.count - 1];
+
+        NSLog(@"-----current_ID:%@----",self.article_id);
+    }
+
+    [self articlePriceGetFromnNet];
+
+}
+
 
 /*
 
