@@ -761,7 +761,8 @@
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"ucbrowser://%@",uc]]];
         
-        
+        [hud hideAnimated:YES];
+
     }else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mttbrowser://"]] ){
         
         if (self.isHeightPrice) {
@@ -771,6 +772,8 @@
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mttbrowser://url=%@",qq]]];
         
+        [hud hideAnimated:YES];
+
         
     }else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqqbrowser://"]]){
         
@@ -783,6 +786,8 @@
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mqqbrowser://url=%@",qq]]];
         
+        [hud hideAnimated:YES];
+
     }else{
         
         
@@ -1530,7 +1535,6 @@
     [self.view bringSubviewToFront:self.progressView];
     
     
-    [self getArticleIdWithArticleURL:webView.URL.absoluteString];
     
 }
 
@@ -1546,7 +1550,8 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
     NSLog(@"didFinishNavigation");
     
-    
+    [self getArticleIdWithArticleURL:webView.URL.absoluteString];
+
     NSLog(@"didFinishNavigation,URL=>>>>>%@",webView.URL.absoluteString);
 
     
@@ -1572,15 +1577,42 @@
 
     NSArray * arr = [url componentsSeparatedByString:@"/"];
 
+    NSLog(@"%@",arr);
+    
     if (arr.count > 0) {
     
-        self.article_id = arr[arr.count - 1];
+        
+        for (int i = 0 ; i < arr.count ; i++) {
+            
+            if ([arr[i] isEqualToString:@"id"]) {
+                
+                if (i + 1 != arr.count) {
+             
+                    self.article_id = arr[i + 1];
+
+                    break;
+                }
+            }
+        }
+        
+        
+        
 
         NSLog(@"-----current_ID:%@----",self.article_id);
     }
 
     [self articlePriceGetFromnNet];
 
+}
+
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
+
+    NSLog(@"didFinishNavigation,URL=>>>>>%@",webView.URL.absoluteString);
+
+    [self getArticleIdWithArticleURL:webView.URL.absoluteString];
+    
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 
